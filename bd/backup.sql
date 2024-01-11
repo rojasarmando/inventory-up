@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cerenis`
+-- Base de datos: `inventory_kajataca`
 --
 
 -- --------------------------------------------------------
@@ -114,8 +114,7 @@ CREATE TABLE `distribuidora` (
 --
 
 INSERT INTO `distribuidora` (`id_distribuidora`, `id_empresas`, `descripcion`, `nombre`, `telefono`, `fecha_c`, `fecha_m`, `status`) VALUES
-(1, 1, 'Doña Oliva Serrada', 'Nelsibeth Oliva', '04145235969', '2018-04-27 17:49:24', '2018-04-27 17:49:24', 1),
-(2, 2, 'Mafia Cabrera', 'Cerenis Cabrera', '04245452248', '2018-04-27 17:49:24', '2018-04-27 17:49:24', 1);
+(1, 1, 'Doña Oliva Serrada', 'Nelsibeth Oliva', '04145235969', '2018-04-27 17:49:24', '2018-04-27 17:49:24', 1)
 
 -- --------------------------------------------------------
 

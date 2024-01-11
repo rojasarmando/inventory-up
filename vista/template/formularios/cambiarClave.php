@@ -36,7 +36,7 @@
 
 <div class="col-sm-6">
 	<div class="input-group">
-		<input type="password" class="form-control " id="respuesta" placeholder="Ejemplo: CERENIS CABRERA" >
+		<input type="password" class="form-control " id="respuesta" placeholder="Ejemplo: INVENTORY KAJATACA" >
 		<dir class="input-group-addon"  >
 				<a  id=botonRespuesta >
 				<i class="glyphicon glyphicon-eye-open"> </i>

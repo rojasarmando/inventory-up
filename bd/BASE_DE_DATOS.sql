@@ -9,9 +9,9 @@
 
  */ 
 
-create database Cerenis;
+create database inventory_kajataca;
 
-use Cerenis;
+use inventory_kajataca;
 
 create table modulos (
 
@@ -361,19 +361,10 @@ insert permisos values(2,5);
 insert permisos values(2,6);
 
 
-
-
 /*Usuarios*/
 
 insert into usuarios (id_usuarios, nick , nombre,clave,pregunta,respuesta, id_roles) values (2605957, 'ARMANDO2018',"ARMANDO ROJAS", md5('Ar12345678') , 'Eres Chavizta' ,	md5('TU ERES MARICO'), 1 );
 insert into usuarios (id_usuarios, nick , nombre,clave,pregunta,respuesta, id_roles) values (12964334, 'NORKIS2018',"NORKIS QUERALES", md5('Ar12345678') , 'Eres Chavizta' ,	md5('TU ERES MARICO'), 1 );
-
-
-
-
-
-
-
 
 /*Categoria*/
 
@@ -404,16 +395,10 @@ insert into presentacion (descripcion) values ('Mililitros ');
 
 insert into empresas (descripcion) values ("La Polar");
 insert into empresas (descripcion) values ("La Regional");
-insert into empresas (descripcion) values ("UnicornioLandia en Revolucion");
 
 
 /*Distribuidora  */
 
-insert distribuidora (id_empresas , descripcion , nombre , telefono ) values (1, 'Doña Oliva Serrada','Nelsibeth Oliva','04145235969'); 
-insert distribuidora (id_empresas , descripcion , nombre , telefono ) values (2, 'Mafia Cabrera','Cerenis Cabrera','04245452248'); 
+insert distribuidora (id_empresas , descripcion , nombre , telefono ) values (1, 'Doña Oliva Serrada','Nelsibeth Oliva','041411111111'); 
 
-
-
-
-
-drop database Cerenis;
+drop database inventory_kajataca;

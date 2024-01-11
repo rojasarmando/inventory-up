@@ -506,7 +506,7 @@ String.prototype.trim = function() { return this.replace(/^\s+|\s+$/g, "")}
 		//prueba del objecto 
 
 		alerta: function(){
-			alert("Te Amo Cerenis Paola Cabrera de Rojas <3"); 
+			alert("Testing Alert")
 		}
 
 		//------------------------------------

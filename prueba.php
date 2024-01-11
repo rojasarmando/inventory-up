@@ -2,7 +2,7 @@
 // Carga la configuración 
 //$config = parse_ini_file('config.ini'); 
 /*
-$config = array(  'username' => "armando" , 'password' => "12345678" , "dbname" => 'cerenis' );
+$config = array(  'username' => "armando" , 'password' => "12345678" , "dbname" => 'inventario_kajataca' );
 
 // Conexión con los datos del 'config.ini' 
 $connection = mysqli_connect('192.168.0.103',$config['username'],"12345678",$config['dbname']); 
