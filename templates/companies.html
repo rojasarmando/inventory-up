@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">
+    <i class="bi bi-buildings"></i>
+    <span data-i18n="companies.title">Consultar Empresas</span>
+  </h1>
+  <button type="button" class="btn btn-kajataca" id="btnAddCompany">
+    <i class="bi bi-plus-lg me-1"></i>
+    <span data-i18n="companies.add">Registrar Empresa</span>
+  </button>
+</div>
+
+<div class="card table-card">
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th data-i18n="companies.rif">RIF</th>
+          <th data-i18n="companies.name">Nombre de la Empresa</th>
+          <th data-i18n="common.description">Descripción</th>
+          <th data-i18n="common.status">Estado</th>
+          <th data-i18n="common.actions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="companiesTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Company modal (create/edit) -->
+<div class="modal fade" id="companyModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="companyModalTitle" data-i18n="companies.add">Registrar Empresa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="companyId">
+        <div class="mb-3">
+          <label for="companyRif" class="form-label" data-i18n="companies.rif">RIF</label>
+          <input type="text" class="form-control" id="companyRif" maxlength="12" inputmode="numeric">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+          <label for="companyName" class="form-label" data-i18n="companies.name">Nombre de la Empresa</label>
+          <input type="text" class="form-control" id="companyName" maxlength="40">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+          <label for="companyDescription" class="form-label" data-i18n="common.description">Descripción</label>
+          <textarea class="form-control" id="companyDescription" rows="2" maxlength="120"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-i18n="common.cancel">Cancelar</button>
+        <button type="button" class="btn btn-kajataca" id="btnSaveCompany">
+          <i class="bi bi-check-lg me-1"></i>
+          <span data-i18n="common.save">Guardar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/validators.js"></script>
+<script src="/static/js/companies.js"></script>
+{% endblock %}

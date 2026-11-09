@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">
+      <i class="bi bi-arrow-left-right"></i>
+      <span data-i18n="movements.title">Movimientos</span>
+    </h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-5 mb-4">
+    <ul class="nav nav-pills mb-2" id="movementTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="purchaseTab" data-bs-toggle="tab"
+          data-bs-target="#purchasePane" type="button" role="tab"
+          aria-controls="purchasePane" aria-selected="true">
+          <i class="bi bi-box-arrow-in-down me-1"></i>
+          <span data-i18n="movements.tab_purchase">Ingreso / Compra</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="saleTab" data-bs-toggle="tab"
+          data-bs-target="#salePane" type="button" role="tab"
+          aria-controls="salePane" aria-selected="false">
+          <i class="bi bi-box-arrow-up me-1"></i>
+          <span data-i18n="movements.tab_sale">Salida / Venta</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Purchase (stock in) -->
+      <div class="tab-pane fade show active" id="purchasePane" role="tabpanel" aria-labelledby="purchaseTab">
+        <form id="purchaseForm" novalidate>
+          <div class="mb-3">
+            <label for="purchaseProduct" class="form-label" data-i18n="movements.product">Producto</label>
+            <select class="form-select" id="purchaseProduct"></select>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="row g-3">
+            <div class="col-6">
+              <label for="purchaseQuantity" class="form-label" data-i18n="movements.quantity">Cantidad</label>
+              <input type="number" class="form-control" id="purchaseQuantity" min="1" step="1" inputmode="numeric">
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="col-6">
+              <label for="purchaseUnitPrice" class="form-label" data-i18n="movements.unit_price">Precio unitario</label>
+              <input type="number" class="form-control" id="purchaseUnitPrice" min="0" step="0.01" inputmode="decimal">
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="mb-3 mt-3">
+            <label for="purchaseSupplier" class="form-label" data-i18n="movements.supplier">Proveedor (opcional)</label>
+            <input type="text" class="form-control" id="purchaseSupplier" maxlength="120">
+          </div>
+          <div class="mb-3">
+            <label for="purchaseDescription" class="form-label" data-i18n="movements.description">Descripción (opcional)</label>
+            <textarea class="form-control" id="purchaseDescription" rows="2" maxlength="200"></textarea>
+          </div>
+          <button type="submit" class="btn btn-kajataca w-100" id="btnRegisterPurchase">
+            <i class="bi bi-box-arrow-in-down me-1"></i>
+            <span data-i18n="movements.register_purchase">Registrar Compra</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Sale (stock out) -->
+      <div class="tab-pane fade" id="salePane" role="tabpanel" aria-labelledby="saleTab">
+        <form id="saleForm" novalidate>
+          <div class="mb-3">
+            <label for="saleProduct" class="form-label" data-i18n="movements.product">Producto</label>
+            <select class="form-select" id="saleProduct"></select>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="row g-3">
+            <div class="col-6">
+              <label for="saleQuantity" class="form-label" data-i18n="movements.quantity">Cantidad</label>
+              <input type="number" class="form-control" id="saleQuantity" min="1" step="1" inputmode="numeric">
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="col-6">
+              <label for="saleUnitPrice" class="form-label" data-i18n="movements.unit_price">Precio unitario</label>
+              <input type="number" class="form-control" id="saleUnitPrice" min="0" step="0.01" inputmode="decimal">
+              <div class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="mb-3 mt-3">
+            <label for="saleClient" class="form-label" data-i18n="movements.client">Cliente (opcional)</label>
+            <input type="text" class="form-control" id="saleClient" maxlength="120">
+          </div>
+          <div class="mb-3">
+            <label for="saleDescription" class="form-label" data-i18n="movements.description">Descripción (opcional)</label>
+            <textarea class="form-control" id="saleDescription" rows="2" maxlength="200"></textarea>
+          </div>
+          <button type="submit" class="btn btn-kajataca w-100" id="btnRegisterSale">
+            <i class="bi bi-box-arrow-up me-1"></i>
+            <span data-i18n="movements.register_sale">Registrar Venta</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="col-lg-7 mb-4">
+    <div class="card table-card h-100">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span class="fw-semibold">
+          <i class="bi bi-clock-history text-accent me-2"></i>
+          <span data-i18n="movements.tab_history">Historial</span>
+        </span>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-kajataca align-middle">
+          <thead>
+            <tr>
+              <th data-i18n="movements.date">Fecha</th>
+              <th data-i18n="movements.product">Producto</th>
+              <th data-i18n="movements.type">Tipo</th>
+              <th data-i18n="movements.kind">Movimiento</th>
+              <th data-i18n="movements.quantity">Cantidad</th>
+              <th data-i18n="movements.unit_price">Precio</th>
+              <th data-i18n="movements.party">Cliente / Proveedor</th>
+              <th data-i18n="movements.user">Usuario</th>
+            </tr>
+          </thead>
+          <tbody id="movementsTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/validators.js"></script>
+<script src="/static/js/movements.js"></script>
+{% endblock %}

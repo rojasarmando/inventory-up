@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">
+    <i class="bi bi-people"></i>
+    <span data-i18n="users.title">Consultar Usuarios</span>
+  </h1>
+  <button type="button" class="btn btn-kajataca" id="btnAddUser">
+    <i class="bi bi-plus-lg me-1"></i>
+    <span data-i18n="users.add">Registrar Usuario</span>
+  </button>
+</div>
+
+<div class="row g-2 mb-3">
+  <div class="col-auto">
+    <select class="form-select" id="filterRole">
+      <option value="" data-i18n="users.filter_role">Filtrar por rol</option>
+    </select>
+  </div>
+  <div class="col-auto">
+    <select class="form-select" id="filterStatus">
+      <option value="" data-i18n="users.filter_status">Filtrar por estado</option>
+      <option value="1" data-i18n="status.active">Activo</option>
+      <option value="0" data-i18n="status.inactive">Inactivo</option>
+    </select>
+  </div>
+</div>
+
+<div class="card table-card">
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th data-i18n="users.name">Nombre y Apellido</th>
+          <th data-i18n="users.nick">Nick</th>
+          <th data-i18n="users.cedula">Cédula</th>
+          <th data-i18n="users.role">Tipo de Usuario</th>
+          <th data-i18n="common.status">Estado</th>
+          <th data-i18n="common.actions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="usersTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- User modal (create/edit) -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalTitle" data-i18n="users.add">Registrar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="userId">
+        <div class="row g-3">
+          <div class="col-md-6 mb-3">
+            <label for="userName" class="form-label" data-i18n="users.name">Nombre y Apellido</label>
+            <input type="text" class="form-control" id="userName" maxlength="40">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="userNick" class="form-label" data-i18n="users.nick">Nick</label>
+            <input type="text" class="form-control" id="userNick" maxlength="12">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="userCedula" class="form-label" data-i18n="users.cedula">Cédula</label>
+            <input type="text" class="form-control" id="userCedula" maxlength="8" inputmode="numeric">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="userRole" class="form-label" data-i18n="users.role">Tipo de Usuario</label>
+            <select class="form-select" id="userRole"></select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="userPassword" class="form-label" data-i18n="users.password">Contraseña</label>
+            <input type="password" class="form-control" id="userPassword" maxlength="12" autocomplete="new-password">
+            <div class="invalid-feedback"></div>
+            <div class="form-text" id="passwordHelp"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="userConfirmPassword" class="form-label" data-i18n="users.confirm_password">Confirmar contraseña</label>
+            <input type="password" class="form-control" id="userConfirmPassword" maxlength="12" autocomplete="new-password">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="userQuestion" class="form-label" data-i18n="users.question">Pregunta de Seguridad</label>
+            <input type="text" class="form-control" id="userQuestion" maxlength="50">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="userAnswer" class="form-label" data-i18n="users.answer">Respuesta de Seguridad</label>
+            <input type="text" class="form-control" id="userAnswer" maxlength="50">
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-i18n="common.cancel">Cancelar</button>
+        <button type="button" class="btn btn-kajataca" id="btnSaveUser">
+          <i class="bi bi-check-lg me-1"></i>
+          <span data-i18n="common.save">Guardar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/validators.js"></script>
+<script src="/static/js/users.js"></script>
+{% endblock %}

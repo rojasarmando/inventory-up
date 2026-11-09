@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">
+    <i class="bi bi-journal-text"></i>
+    <span data-i18n="logs.title">Bitácora del Sistema</span>
+  </h1>
+</div>
+
+<div class="card table-card">
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th data-i18n="logs.date">Fecha y Hora</th>
+          <th data-i18n="logs.user">Usuario</th>
+          <th data-i18n="logs.event">Evento</th>
+          <th data-i18n="logs.description">Descripción</th>
+        </tr>
+      </thead>
+      <tbody id="logsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/logs.js"></script>
+{% endblock %}

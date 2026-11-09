@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">
+    <i class="bi bi-truck"></i>
+    <span data-i18n="distributors.title">Consultar Distribuidoras</span>
+  </h1>
+  <button type="button" class="btn btn-kajataca" id="btnAddDistributor">
+    <i class="bi bi-plus-lg me-1"></i>
+    <span data-i18n="distributors.add">Registrar Distribuidora</span>
+  </button>
+</div>
+
+<div class="row g-2 mb-3">
+  <div class="col-auto">
+    <select class="form-select" id="filterCompany">
+      <option value="" data-i18n="distributors.filter_company">Filtrar por empresa</option>
+    </select>
+  </div>
+</div>
+
+<div class="card table-card">
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th data-i18n="distributors.name">Nombre de la Distribuidora</th>
+          <th data-i18n="distributors.phone">Teléfono</th>
+          <th data-i18n="distributors.contact">Contacto</th>
+          <th data-i18n="distributors.company">Empresa</th>
+          <th data-i18n="common.status">Estado</th>
+          <th data-i18n="common.actions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="distributorsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Distributor modal (create/edit) -->
+<div class="modal fade" id="distributorModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="distributorModalTitle" data-i18n="distributors.add">Registrar Distribuidora</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="distributorId">
+        <div class="mb-3">
+          <label for="distributorName" class="form-label" data-i18n="distributors.name">Nombre de la Distribuidora</label>
+          <input type="text" class="form-control" id="distributorName" maxlength="40">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+          <label for="distributorPhone" class="form-label" data-i18n="distributors.phone">Teléfono</label>
+          <input type="text" class="form-control" id="distributorPhone" maxlength="11" inputmode="numeric">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+          <label for="distributorContact" class="form-label" data-i18n="distributors.contact">Contacto</label>
+          <input type="text" class="form-control" id="distributorContact" maxlength="40">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+          <label for="distributorCompany" class="form-label" data-i18n="distributors.company">Empresa</label>
+          <select class="form-select" id="distributorCompany"></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-i18n="common.cancel">Cancelar</button>
+        <button type="button" class="btn btn-kajataca" id="btnSaveDistributor">
+          <i class="bi bi-check-lg me-1"></i>
+          <span data-i18n="common.save">Guardar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/validators.js"></script>
+<script src="/static/js/distributors.js"></script>
+{% endblock %}

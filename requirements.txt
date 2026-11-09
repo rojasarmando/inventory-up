@@ -1,0 +1,17 @@
+# Backend / web framework
+fastapi
+uvicorn[standard]
+
+# ORM, migrations and templating
+sqlalchemy
+alembic
+jinja2
+
+# Auth
+pyjwt
+
+# PDF reports (Python port of FPDF)
+fpdf2
+
+# Form parsing (FastAPI requirement)
+python-multipart

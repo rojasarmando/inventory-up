@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">
+      <i class="bi bi-music-note-beamed"></i>
+      <span data-i18n="music.title">Música</span>
+    </h1>
+    <p class="text-muted mb-0 mt-1" data-i18n="music.subtitle">Canciones del sistema</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4 mb-4">
+    <div class="card card-kajataca">
+      <div class="card-header">
+        <i class="bi bi-upload text-accent me-2"></i>
+        <span class="fw-semibold" data-i18n="music.upload">Subir Canción</span>
+      </div>
+      <div class="card-body">
+        <form id="musicUploadForm" novalidate>
+          <div class="mb-3">
+            <label for="songTitle" class="form-label" data-i18n="music.song_title">Título</label>
+            <input type="text" class="form-control" id="songTitle" maxlength="120">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="mb-4">
+            <label for="songFile" class="form-label" data-i18n="music.file">Archivo de audio</label>
+            <input type="file" class="form-control" id="songFile" accept="audio/*,.mp3,.ogg,.wav,.m4a">
+            <div class="invalid-feedback"></div>
+          </div>
+          <button type="submit" class="btn btn-kajataca w-100" id="btnUploadSong">
+            <i class="bi bi-cloud-arrow-up me-1"></i>
+            <span data-i18n="music.upload">Subir Canción</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-8 mb-4">
+    <div class="row g-3" id="songsGrid"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/music.js"></script>
+{% endblock %}

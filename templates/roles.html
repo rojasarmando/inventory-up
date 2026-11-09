@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">
+    <i class="bi bi-shield-lock"></i>
+    <span data-i18n="roles.title">Roles y Permisos</span>
+  </h1>
+</div>
+
+<div class="alert alert-secondary d-flex align-items-center gap-2" role="alert">
+  <i class="bi bi-info-circle"></i>
+  <span data-i18n="roles.root_note">
+    El rol Root tiene acceso total al sistema (no requiere permisos).
+  </span>
+</div>
+
+<div class="card table-card">
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th data-i18n="roles.name">Rol</th>
+          <th data-i18n="common.description">Descripción</th>
+          <th data-i18n="roles.permissions">Permisos</th>
+        </tr>
+      </thead>
+      <tbody id="rolesTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Permission manager modal -->
+<div class="modal fade" id="permissionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="permissionModalTitle" data-i18n="roles.manage">Gestionar Permisos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger d-none" id="rootPermissionNote" data-i18n="roles.root_note">
+          El rol Root tiene acceso total al sistema (no requiere permisos).
+        </div>
+        <div id="permissionCheckboxes"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-i18n="common.cancel">Cancelar</button>
+        <button type="button" class="btn btn-kajataca" id="btnSavePermissions">
+          <i class="bi bi-check-lg me-1"></i>
+          <span data-i18n="roles.save">Guardar Permisos</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/roles.js"></script>
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-panel mb-4">
+  <div class="row align-items-center g-4">
+    <div class="col-md-8">
+      <h1 class="display-6 fw-bold mb-2">
+        <i class="bi bi-speedometer2 text-accent me-2"></i>
+        <span data-i18n="dashboard.title">Dashboard</span>
+      </h1>
+      <p class="lead mb-0 text-muted">
+        <span data-i18n="home.hello">¡Hola!</span>
+        <span class="text-accent">{{ user.name }}</span>
+        <span aria-hidden="true">·</span>
+        <span data-i18n="dashboard.subtitle">Resumen general del inventario</span>
+      </p>
+    </div>
+    <div class="col-md-4 d-none d-md-flex justify-content-center">
+      <i class="bi bi-box-seam welcome-icon"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Stat cards -->
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-xl-3">
+    <a class="stat-card text-decoration-none" href="/products" aria-label="Products">
+      <span class="stat-icon"><i class="bi bi-box-seam"></i></span>
+      <span>
+        <span class="stat-value" id="statProducts">0</span>
+        <span class="stat-label d-block" data-i18n="dashboard.products">Productos</span>
+      </span>
+    </a>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <a class="stat-card text-decoration-none" href="/products" aria-label="Low stock">
+      <span class="stat-icon"><i class="bi bi-exclamation-triangle"></i></span>
+      <span>
+        <span class="stat-value" id="statLowStock">0</span>
+        <span class="stat-label d-block" data-i18n="dashboard.low_stock">Stock bajo</span>
+      </span>
+    </a>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <a class="stat-card text-decoration-none" href="/movements" aria-label="Movements today">
+      <span class="stat-icon"><i class="bi bi-arrow-left-right"></i></span>
+      <span>
+        <span class="stat-value" id="statMovementsToday">0</span>
+        <span class="stat-label d-block" data-i18n="dashboard.movements_today">Movimientos hoy</span>
+      </span>
+    </a>
+  </div>
+  <div class="col-sm-6 col-xl-3">
+    <a class="stat-card text-decoration-none" href="/movements" aria-label="Sales today">
+      <span class="stat-icon"><i class="bi bi-cart"></i></span>
+      <span>
+        <span class="stat-value" id="statSalesToday">0</span>
+        <span class="stat-label d-block" data-i18n="dashboard.sales_today">Ventas hoy</span>
+      </span>
+    </a>
+  </div>
+</div>
+
+<!-- Low stock table -->
+<div class="card table-card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span class="fw-semibold">
+      <i class="bi bi-exclamation-triangle text-accent me-2"></i>
+      <span data-i18n="dashboard.low_stock_title">Productos con stock bajo</span>
+    </span>
+    <a href="/products" class="btn btn-sm btn-outline-primary">
+      <i class="bi bi-box-seam me-1"></i>
+      <span data-i18n="dashboard.view_products">Ver productos</span>
+    </a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th data-i18n="products.name">Producto</th>
+          <th data-i18n="products.company">Empresa</th>
+          <th data-i18n="products.stock">Stock</th>
+          <th data-i18n="products.price">Precio</th>
+        </tr>
+      </thead>
+      <tbody id="lowStockBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Latest movements table -->
+<div class="card table-card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span class="fw-semibold">
+      <i class="bi bi-clock-history text-accent me-2"></i>
+      <span data-i18n="dashboard.latest_movements_title">Últimos movimientos</span>
+    </span>
+    <a href="/movements" class="btn btn-sm btn-outline-primary">
+      <i class="bi bi-arrow-left-right me-1"></i>
+      <span data-i18n="dashboard.view_movements">Ver movimientos</span>
+    </a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th data-i18n="movements.date">Fecha</th>
+          <th data-i18n="movements.product">Producto</th>
+          <th data-i18n="movements.type">Tipo</th>
+          <th data-i18n="movements.kind">Movimiento</th>
+          <th data-i18n="movements.quantity">Cantidad</th>
+          <th data-i18n="movements.user">Usuario</th>
+        </tr>
+      </thead>
+      <tbody id="latestMovementsBody"></tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}

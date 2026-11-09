@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    ports:
+      - "9696:9696"
+    volumes:
+      - ./data:/data
+    environment:
+      # Override in production with a strong random value.
+      SECRET_KEY: "dev-secret-key-change-me-in-production"
+    restart: unless-stopped

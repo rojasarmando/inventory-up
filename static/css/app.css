@@ -1,0 +1,905 @@
+/* ==========================================================================
+   Kajataca Inventory — application styles (2026 redesign)
+   --------------------------------------------------------------------------
+   Design system built on CSS custom properties. Light theme lives in :root,
+   dark theme keys off [data-bs-theme="dark"] (Bootstrap 5.3 native dark
+   mode). Design tokens are referenced throughout so every component adapts
+   when the theme toggles.
+   ========================================================================== */
+
+/* --- Design tokens -------------------------------------------------------- */
+
+:root {
+  /* Surfaces & text (light) */
+  --bg: #f4f5fa;
+  --surface: #ffffff;
+  --surface-2: #eef0f6;
+  --border: #e3e6ef;
+  --border-strong: #c9cede;
+  --text: #1b1f2b;
+  --text-muted: #5d6674;
+
+  /* Brand & semantic colors (light) */
+  --accent: #dc2626;
+  --accent-hover: #b91c1c;
+  --accent-soft: rgba(220, 38, 38, 0.09);
+  --danger: #dc2626;
+  --success: #16a34a;
+  --warning: #d97706;
+  --info: #0ea5e9;
+
+  /* Shape & elevation (light) */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08);
+  --shadow-md: 0 4px 10px -2px rgba(16, 24, 40, 0.1), 0 2px 4px -2px rgba(16, 24, 40, 0.06);
+  --shadow-lg: 0 16px 32px -8px rgba(16, 24, 40, 0.16), 0 6px 12px -6px rgba(16, 24, 40, 0.1);
+
+  /* Motion */
+  --transition: 160ms ease;
+  --transition-fast: 120ms ease;
+
+  /* Bootstrap bridge (light) */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-body-font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --bs-border-color: var(--border);
+  --bs-tertiary-bg: var(--surface-2);
+  --bs-secondary-bg: var(--surface-2);
+  --bs-secondary-color: var(--text-muted);
+  --bs-primary: var(--accent);
+  --bs-primary-rgb: 220, 38, 38;
+  --bs-primary-text-emphasis: #7f1d1d;
+  --bs-primary-bg-subtle: #fee2e2;
+  --bs-primary-border-subtle: #fecaca;
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: var(--accent-hover);
+  --bs-link-color-rgb: 220, 38, 38;
+
+  color-scheme: light;
+}
+
+[data-bs-theme="dark"] {
+  /* Surfaces & text (dark) */
+  --bg: #0d1017;
+  --surface: #161b23;
+  --surface-2: #1f2530;
+  --border: #2a3140;
+  --border-strong: #3b4354;
+  --text: #e7e9f0;
+  --text-muted: #98a2b3;
+
+  /* Brand & semantic colors (dark) */
+  --accent: #f87171;
+  --accent-hover: #fca5a5;
+  --accent-soft: rgba(248, 113, 113, 0.14);
+  --danger: #f87171;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --info: #38bdf8;
+
+  /* Shape & elevation (dark) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 10px -2px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 32px -8px rgba(0, 0, 0, 0.6), 0 6px 12px -6px rgba(0, 0, 0, 0.5);
+
+  /* Bootstrap bridge (dark) */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-border-color: var(--border);
+  --bs-tertiary-bg: var(--surface-2);
+  --bs-secondary-bg: var(--surface-2);
+  --bs-secondary-color: var(--text-muted);
+  --bs-primary: var(--accent);
+  --bs-primary-rgb: 248, 113, 113;
+  --bs-primary-text-emphasis: #fecaca;
+  --bs-primary-bg-subtle: rgba(248, 113, 113, 0.12);
+  --bs-primary-border-subtle: rgba(248, 113, 113, 0.32);
+  --bs-link-color: var(--accent);
+  --bs-link-hover-color: var(--accent-hover);
+  --bs-link-color-rgb: 248, 113, 113;
+
+  color-scheme: dark;
+}
+
+/* --- Base ---------------------------------------------------------------- */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  background-image: radial-gradient(
+      60rem 40rem at 115% -10%,
+      color-mix(in srgb, var(--accent) 7%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      50rem 30rem at -15% 110%,
+      color-mix(in srgb, var(--accent) 5%, transparent),
+      transparent 60%
+    );
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--bs-body-font-family);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: var(--bs-link-color);
+}
+a:hover {
+  color: var(--bs-link-hover-color);
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* --- Navbar -------------------------------------------------------------- */
+
+.navbar-kajataca {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.navbar-kajataca .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.navbar-kajataca .navbar-brand:hover,
+.navbar-kajataca .navbar-brand:focus {
+  color: var(--text);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: #fff;
+  font-size: 1.05rem;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.navbar-kajataca .nav-link {
+  color: var(--text-muted);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.85rem;
+  transition: color var(--transition), background-color var(--transition);
+}
+.navbar-kajataca .nav-link:hover,
+.navbar-kajataca .nav-link:focus,
+.navbar-kajataca .nav-link.show {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.navbar-toggler {
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 0.375rem 0.6rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.navbar-toggler:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.navbar-toggler .bi {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* --- Buttons ------------------------------------------------------------- */
+
+.btn {
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem
+    color-mix(in srgb, var(--accent) 28%, transparent);
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: color var(--transition), background-color var(--transition),
+    border-color var(--transition), box-shadow var(--transition),
+    transform var(--transition-fast);
+}
+.btn:focus-visible {
+  outline: 0;
+}
+
+.btn-kajataca {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--accent-hover);
+  --bs-btn-hover-border-color: var(--accent-hover);
+  --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--accent-hover);
+  --bs-btn-active-border-color: var(--accent-hover);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+.btn-kajataca:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Brand-tinted outline buttons (used by the JS-generated table actions). */
+.btn-outline-primary {
+  --bs-btn-color: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--accent);
+  --bs-btn-hover-border-color: var(--accent);
+  --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--accent-hover);
+  --bs-btn-active-border-color: var(--accent-hover);
+}
+
+.btn-outline-warning,
+.btn-outline-danger,
+.btn-outline-secondary {
+  --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+
+.btn-link {
+  --bs-btn-color: var(--accent);
+  --bs-btn-hover-color: var(--accent-hover);
+  --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+
+/* Icon-only button (theme toggle). */
+.btn-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0;
+  flex-shrink: 0;
+}
+.btn-icon .bi {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+/* --- Cards --------------------------------------------------------------- */
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  background: var(--surface);
+  transition: background-color var(--transition), border-color var(--transition),
+    box-shadow var(--transition);
+}
+.card-header {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+}
+.card-footer {
+  background: transparent;
+  border-top: 1px solid var(--border);
+}
+
+.card-kajataca {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+}
+
+/* --- Page header (title + action) ----------------------------------------- */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.page-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.page-title .bi {
+  color: var(--accent);
+  font-size: 1.25em;
+}
+
+/* --- Forms --------------------------------------------------------------- */
+
+.form-control,
+.form-select {
+  border-radius: var(--radius-sm);
+  border-color: var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+  padding: 0.6rem 0.9rem;
+  transition: border-color var(--transition), box-shadow var(--transition),
+    background-color var(--transition);
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.form-control::placeholder {
+  color: var(--text-muted);
+  opacity: 0.75;
+}
+.form-label {
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.form-select {
+  cursor: pointer;
+}
+.form-text {
+  color: var(--text-muted);
+}
+
+.form-check-input:focus {
+  border-color: var(--accent);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.form-check-input:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* --- Modals -------------------------------------------------------------- */
+
+.modal-content {
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface);
+  color: var(--text);
+}
+.modal-header {
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+}
+.modal-title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.modal-body {
+  padding: 1.5rem;
+}
+.modal-footer {
+  border-top: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+}
+
+/* --- Dropdowns ----------------------------------------------------------- */
+
+.dropdown-menu {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  background: var(--surface);
+  padding: 0.5rem;
+}
+.dropdown-item {
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.9rem;
+  color: var(--text);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.table-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.table-card .table-responsive {
+  max-height: 70vh;
+}
+
+.table-kajataca {
+  --bs-table-bg: var(--surface);
+  --bs-table-color: var(--text);
+  --bs-table-border-color: var(--border);
+  margin-bottom: 0;
+}
+.table-kajataca thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 1rem;
+  white-space: nowrap;
+}
+.table-kajataca td {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+  border-color: var(--border);
+}
+.table-kajataca tbody tr {
+  transition: background-color var(--transition-fast);
+}
+.table-kajataca tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--text) 2.5%, var(--surface));
+}
+.table-kajataca tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+}
+
+/* --- Badges -------------------------------------------------------------- */
+
+.badge {
+  border-radius: 999px;
+  padding: 0.5em 0.8em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* --- Alerts -------------------------------------------------------------- */
+
+.alert {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* --- Toasts -------------------------------------------------------------- */
+
+#toastContainer {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1090;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#toastContainer .toast {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  border: none;
+}
+
+/* --- Footer -------------------------------------------------------------- */
+
+.app-footer {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1rem 1.25rem;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+.app-footer .clock {
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Login page ---------------------------------------------------------- */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: var(--bg);
+  background-image: radial-gradient(
+      55rem 38rem at 110% -10%,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      45rem 30rem at -15% 115%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 60%
+    );
+  background-attachment: fixed;
+}
+
+.login-wrap {
+  width: 100%;
+  max-width: 440px;
+}
+
+.card-auth {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+.card-auth .card-footer {
+  background: transparent;
+  border-top: 1px solid var(--border);
+}
+
+.brand-mark-lg {
+  width: 4.4rem;
+  height: 4.4rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.2rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: #fff;
+  font-size: 2.1rem;
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Home page ----------------------------------------------------------- */
+
+.welcome-panel {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, var(--surface)),
+    var(--surface) 55%
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--transition), border-color var(--transition);
+}
+.welcome-icon {
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.9;
+}
+.text-accent {
+  color: var(--accent);
+}
+
+.about-card .card-body {
+  padding: 1.5rem 1.75rem;
+}
+
+/* Gallery as image cards. */
+.gallery {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+.gallery:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+.gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* --- Error pages --------------------------------------------------------- */
+
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: var(--bg);
+  background-image: radial-gradient(
+      50rem 34rem at 50% -20%,
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      transparent 60%
+    );
+  background-attachment: fixed;
+}
+
+.error-box {
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  padding: 3rem 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+.error-icon {
+  font-size: 3.4rem;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.error-code {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.error-box h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* --- Misc ----------------------------------------------------------------- */
+
+.invalid-feedback {
+  display: block;
+}
+
+.separacion {
+  margin-bottom: 2rem;
+}
+
+.sombra-roja {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Dashboard stat cards ------------------------------------------------- */
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition), background-color var(--transition);
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+.stat-card .stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: var(--radius);
+  font-size: 1.5rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  flex-shrink: 0;
+}
+.stat-card .stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* --- Dashboard tables ----------------------------------------------------- */
+
+.row-link {
+  color: inherit;
+  text-decoration: none;
+}
+.row-link:hover,
+.row-link:focus {
+  color: var(--accent);
+}
+.stock-badge {
+  font-variant-numeric: tabular-nums;
+}
+.stock-low {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* --- Movement type / kind badges ------------------------------------------ */
+
+.badge-type-in {
+  background: color-mix(in srgb, var(--success) 16%, var(--surface));
+  color: var(--success);
+  border: 1px solid color-mix(in srgb, var(--success) 35%, transparent);
+}
+.badge-type-out {
+  background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.badge-kind-purchase {
+  background: color-mix(in srgb, var(--info) 16%, var(--surface));
+  color: var(--info);
+  border: 1px solid color-mix(in srgb, var(--info) 35%, transparent);
+}
+.badge-kind-sale {
+  background: color-mix(in srgb, var(--success) 16%, var(--surface));
+  color: var(--success);
+  border: 1px solid color-mix(in srgb, var(--success) 35%, transparent);
+}
+.badge-kind-adjustment {
+  background: color-mix(in srgb, var(--warning) 16%, var(--surface));
+  color: var(--warning);
+  border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent);
+}
+
+/* --- Movements page tabs --------------------------------------------------- */
+
+.movement-tabs .nav-link {
+  color: var(--text-muted);
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--surface);
+  margin-right: 0.25rem;
+  padding: 0.7rem 1.25rem;
+}
+.movement-tabs .nav-link:hover {
+  color: var(--accent);
+  border-color: var(--border-strong);
+}
+.movement-tabs .nav-link.active {
+  color: var(--accent);
+  background: var(--surface);
+  border-color: var(--border);
+  border-bottom-color: var(--surface);
+}
+.movement-tabs .tab-pane {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- Music page ------------------------------------------------------------ */
+
+.music-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem;
+  transition: transform var(--transition), box-shadow var(--transition),
+    border-color var(--transition);
+}
+.music-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+.music-card .music-icon {
+  font-size: 2rem;
+  color: var(--accent);
+}
+.music-card audio {
+  width: 100%;
+  height: 2.2rem;
+}
+
+/* --- Gallery captions ------------------------------------------------------ */
+
+.gallery-caption {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--surface);
+}
+
+/* --- Empty states ---------------------------------------------------------- */
+
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  color: var(--text-muted);
+}
+.empty-state .bi {
+  font-size: 2.75rem;
+  opacity: 0.45;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* --- Product select (movements) -------------------------------------------- */
+
+.product-select-option {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.product-select-option .stock-hint {
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+

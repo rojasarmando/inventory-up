@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">
+      <i class="bi bi-box-seam"></i>
+      <span data-i18n="products.title">Productos</span>
+    </h1>
+  </div>
+  <button type="button" class="btn btn-kajataca" id="btnAddProduct">
+    <i class="bi bi-plus-lg me-1"></i>
+    <span data-i18n="products.add">Nuevo Producto</span>
+  </button>
+</div>
+
+<div class="card table-card">
+  <div class="table-responsive">
+    <table class="table table-hover table-kajataca align-middle">
+      <thead>
+        <tr>
+          <th data-i18n="products.name">Producto</th>
+          <th data-i18n="products.company">Empresa</th>
+          <th data-i18n="products.price">Precio</th>
+          <th data-i18n="products.tax_rate">IVA %</th>
+          <th data-i18n="products.stock">Stock</th>
+          <th data-i18n="common.status">Estado</th>
+          <th data-i18n="common.actions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="productsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Product modal (create/edit) -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productModalTitle" data-i18n="products.add">Nuevo Producto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="productId">
+        <div class="mb-3">
+          <label for="productName" class="form-label" data-i18n="products.name">Producto</label>
+          <input type="text" class="form-control" id="productName" maxlength="40">
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+          <label for="productDescription" class="form-label" data-i18n="common.description">Descripción</label>
+          <textarea class="form-control" id="productDescription" rows="2" maxlength="200"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="productCompany" class="form-label" data-i18n="products.company">Empresa</label>
+          <select class="form-select" id="productCompany">
+            <option value="" data-i18n="common.all">Todos</option>
+          </select>
+          <div class="invalid-feedback"></div>
+        </div>
+        <div class="row g-3">
+          <div class="col-6">
+            <label for="productPrice" class="form-label" data-i18n="products.price">Precio</label>
+            <input type="number" class="form-control" id="productPrice" min="0" step="0.01" inputmode="decimal">
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-6">
+            <label for="productTaxRate" class="form-label" data-i18n="products.tax_rate">IVA %</label>
+            <input type="number" class="form-control" id="productTaxRate" min="0" max="100" step="0.01" inputmode="decimal">
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="mb-3 mt-3" id="stockFieldWrap">
+          <label for="productStock" class="form-label" data-i18n="products.stock">Stock</label>
+          <input type="number" class="form-control" id="productStock" min="0" step="1" inputmode="numeric">
+          <div class="invalid-feedback"></div>
+          <div class="form-text d-none" id="stockEditHint" data-i18n="products.stock_hint">
+            El stock se gestiona a través de los movimientos.
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-i18n="common.cancel">Cancelar</button>
+        <button type="button" class="btn btn-kajataca" id="btnSaveProduct">
+          <i class="bi bi-check-lg me-1"></i>
+          <span data-i18n="common.save">Guardar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/validators.js"></script>
+<script src="/static/js/products.js"></script>
+{% endblock %}

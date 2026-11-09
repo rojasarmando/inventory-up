@@ -1,0 +1,25 @@
+# Local SQLite database (mounted volume in Docker)
+data/
+
+# Python artifacts
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Legacy PHP sources kept as reference (not part of the new build)
+bd/
+storage/
+vendor/
+css/
+js/
+controlador/
+modelo/
+vista/
+include/
+config/
+libs/
+
+# OS files
+Thumbs.db
+.DS_Store
